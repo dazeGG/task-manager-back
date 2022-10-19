@@ -11,7 +11,7 @@ router.use("/sign-up", authMiddleware.usernameCheck);
 router.use("/sign-up", authMiddleware.passwordCheck);
 
 // Route
-router.post("/sign-up", userController.singUp);
+router.post("/sign-up", userController.signUp);
 
 // * Sing In
 // Middlewares
@@ -19,6 +19,6 @@ router.use("/sign-in", authMiddleware.usernameAndPasswordCheck);
 router.use("/sign-in", authMiddleware.passwordCheck);
 
 // Route
-router.post("/sign-in", userController.singIn);
+router.post("/sign-in", userController.signIn);
 
 module.exports = router;

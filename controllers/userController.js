@@ -9,7 +9,7 @@ const generateUniqueToken = async () => {
 };
 
 class userController {
-  async singUp(req, res) {
+  async signUp(req, res) {
     try {
       const username = req.body.username;
       const password = await bcrypt.hash(req.body.password, 10);
@@ -21,7 +21,7 @@ class userController {
       res.status(500).send(error);
     }
   }
-  async singIn(req, res) {
+  async signIn(req, res) {
     const user = await Users.findOne({ username: req.body.username });
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
