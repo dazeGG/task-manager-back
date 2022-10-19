@@ -1,16 +1,16 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const router = require("./routes/index");
 const mongoose = require("mongoose");
-const setHeaders = require("./middlewares/setHeaders");
 
 mongoose.connect(process.env.dbURI);
 
 const app = express();
 
 app.use(express.json());
-app.use(setHeaders);
+app.use(cors());
 app.use("/", router);
 
 const PORT = process.env.PORT || 5000;
