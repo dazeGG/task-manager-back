@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(setHeaders);
-app.use("/", router);
+app.use("/api/", router);
 
 const PORT = process.env.PORT || 5000;
 
