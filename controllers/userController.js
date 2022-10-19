@@ -36,6 +36,17 @@ class userController {
       res.status(404).send("User with this username does not exist");
     }
   }
+  async tokenRefresh(req, res) {
+    const user = await Users.findOne({ token: res.locals.token }).exec();
+    if (user) {
+      const token = await generateUniqueToken();
+      user.token = token;
+      await user.save();
+      res.status(200).json({ token });
+    } else {
+      res.status(404).send("User with this token not found");
+    }
+  }
 }
 
 module.exports = new userController();
