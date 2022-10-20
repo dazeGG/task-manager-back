@@ -33,4 +33,12 @@ router.use("/token/refresh", getTokenMiddleware);
 // Route
 router.put("/token/refresh", userController.tokenRefresh);
 
+// * Tasks
+
+// Middlewares
+router.use("/tasks", getTokenMiddleware);
+
+// Route
+router.get("/tasks", userController.getTasks);
+
 module.exports = router;
