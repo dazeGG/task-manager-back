@@ -9,6 +9,6 @@ const generateToken = () => {
 
 module.exports = async () => {
   let token = generateToken();
-  while (await Users.findOne({ token }).exec()) token = tokenGenerator();
+  while (await Users.findOne({ token }).exec()) token = generateToken();
   return token;
 };
