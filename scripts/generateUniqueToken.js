@@ -1,3 +1,5 @@
+const Users = require("../schemas/User");
+
 const generatePartOfToken = () => Math.random().toString(36).substr(2);
 const generateToken = () => {
   let token = "";
@@ -5,4 +7,8 @@ const generateToken = () => {
   return token;
 };
 
-module.exports = generateToken;
+module.exports = async () => {
+  let token = generateToken();
+  while (await Users.findOne({ token }).exec()) token = tokenGenerator();
+  return token;
+};
