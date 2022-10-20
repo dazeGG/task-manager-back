@@ -1,17 +1,10 @@
 // Schemas
-const Groups = require("../schemas/Group");
-const Tasks = require("../schemas/Task");
 const Users = require("../schemas/User");
 
 // Utils
 const bcrypt = require("bcrypt");
-const tokenGenerator = require("../scripts/tokenGenerator");
-
-const generateUniqueToken = async () => {
-  let token = tokenGenerator();
-  while (await Users.findOne({ token }).exec()) token = tokenGenerator();
-  return token;
-};
+const generateUniqueToken = require("../scripts/generateUniqueToken");
+const createWelcomeGroup = require("../scripts/createWelcomeGroup");
 
 class userController {
   async signUp(req, res) {
@@ -19,7 +12,12 @@ class userController {
       const username = req.body.username;
       const password = await bcrypt.hash(req.body.password, 10);
       const token = await generateUniqueToken();
-      await Users.create({ username, password, token });
+      await Users.create({
+        username,
+        password,
+        token,
+        groups: [await createWelcomeGroup()],
+      });
       res.status(201).json({ token });
     } catch (error) {
       console.log(error);
