@@ -1,4 +1,9 @@
+// Schemas
+const Groups = require("../schemas/Group");
+const Tasks = require("../schemas/Task");
 const Users = require("../schemas/User");
+
+// Utils
 const bcrypt = require("bcrypt");
 const tokenGenerator = require("../scripts/tokenGenerator");
 
@@ -46,6 +51,10 @@ class userController {
     } else {
       res.status(404).send("User with this token not found");
     }
+  }
+  async getTasks(req, res) {
+    const user = await Users.findOne({ token: res.locals.token }).exec();
+    console.log(user);
   }
 }
 
